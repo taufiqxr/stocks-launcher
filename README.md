@@ -5,10 +5,14 @@
 Type a ticker or a company name. Hit Enter. Every research site you care
 about opens at once — each on the **direct quote page** for that symbol.
 
-- **Yahoo Finance** · **Morningstar** · **Barron's** · **WSJ** · **X** (the
-  `$TICKER` cashtag search)
+- Twelve sites, grouped by purpose: **Yahoo Finance**, **Google Finance**,
+  **Morningstar**, **Nasdaq** · **CNBC**, **MarketWatch**, **Barron's**,
+  **WSJ** · **TradingView**, **Finviz** · **X** and **Stocktwits** (cashtag
+  feeds)
 - Suggestions as you type, by ticker or company name
-- Toggle any site on or off — your picks are remembered
+- Check or uncheck any site — free ones start on, and your picks are
+  remembered (per browser on the web, synced across Chromes in the
+  extension)
 - One static page: no server, no account, no API keys, no tracking
 
 ## Why

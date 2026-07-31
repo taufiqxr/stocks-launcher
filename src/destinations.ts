@@ -16,7 +16,19 @@ export type SymbolInfo = {
   kind: Kind | "";
 };
 
-export type DestId = "yahoo" | "morningstar" | "barrons" | "wsj" | "x";
+export type DestId =
+  | "yahoo"
+  | "google"
+  | "morningstar"
+  | "nasdaq"
+  | "cnbc"
+  | "marketwatch"
+  | "barrons"
+  | "wsj"
+  | "tradingview"
+  | "finviz"
+  | "x"
+  | "stocktwits";
 
 const SECTIONS: Record<string, string> = {
   stock: "stocks",
@@ -71,17 +83,69 @@ function wsjUrl(symbol: string, info?: SymbolInfo): string {
   return `https://www.wsj.com/market-data/quotes/${encodeURIComponent(dotted(symbol))}`;
 }
 
+// Google Finance quote paths need their own exchange spelling; a fund is
+// always :MUTF. Verified: AAPL:NASDAQ, SPY:NYSEARCA, FXAIX:MUTF. The BARE
+// path (no suffix) is NOT a quote page — it lands on the Google Finance
+// home — so the no-data fallback is a plain Google search, whose finance
+// panel resolves anything.
+const GOOGLE_EXCH: Record<string, string> = {
+  xnas: "NASDAQ",
+  xnys: "NYSE",
+  arcx: "NYSEARCA",
+  xase: "NYSEAMERICAN",
+  bats: "BATS",
+  pinx: "OTCMKTS",
+};
+
+function googleUrl(symbol: string, info?: SymbolInfo): string {
+  if (info?.kind === "fund") {
+    return `https://www.google.com/finance/quote/${encodeURIComponent(symbol)}:MUTF`;
+  }
+  const exch = info && GOOGLE_EXCH[info.mic];
+  if (exch) {
+    return `https://www.google.com/finance/quote/${encodeURIComponent(symbol)}:${exch}`;
+  }
+  return `https://www.google.com/search?q=${encodeURIComponent(symbol + " stock")}`;
+}
+
+function nasdaqUrl(symbol: string, info?: SymbolInfo): string {
+  const section = info?.kind === "etf" ? "etf" : info?.kind === "fund" ? "mutual-fund" : "stocks";
+  return `https://www.nasdaq.com/market-activity/${section}/${encodeURIComponent(symbol.toLowerCase())}`;
+}
+
+function marketwatchUrl(symbol: string, info?: SymbolInfo): string {
+  // MarketWatch files ETFs and mutual funds together under /fund/.
+  const section = info?.kind === "etf" || info?.kind === "fund" ? "fund" : "stock";
+  return `https://www.marketwatch.com/investing/${section}/${encodeURIComponent(symbol.toLowerCase())}`;
+}
+
+// `free`: usable without a subscription — these default ON (owner decision
+// 2026-07-31); the subscription brands ship default-off. A stored choice
+// always wins over defaults.
 export const DESTINATIONS: {
   id: DestId;
   mark: string;
   name: string;
+  group: string;
+  free: boolean;
   url: (symbol: string, info?: SymbolInfo) => string;
 }[] = [
-  { id: "yahoo", mark: "Y!", name: "Yahoo Finance", url: (s) => `https://finance.yahoo.com/quote/${encodeURIComponent(s)}` },
-  { id: "morningstar", mark: "★", name: "Morningstar", url: morningstarUrl },
-  { id: "barrons", mark: "B", name: "Barron's", url: barronsUrl },
-  { id: "wsj", mark: "WSJ", name: "The Wall Street Journal", url: wsjUrl },
-  // The cashtag search — what people are SAYING about the ticker, where the
-  // other four are what it's worth.
-  { id: "x", mark: "𝕏", name: "X (cashtag search)", url: (s) => `https://x.com/search?q=${encodeURIComponent("$" + s)}&src=cashtag_click` },
+  // One endpoint per symbol regardless of kind: Yahoo, CNBC, TradingView,
+  // Finviz (self-redirects unknowns to its own search), Stocktwits, X.
+  { id: "yahoo", mark: "Y!", name: "Yahoo Finance", group: "Quotes", free: true, url: (s) => `https://finance.yahoo.com/quote/${encodeURIComponent(s)}` },
+  { id: "google", mark: "G", name: "Google Finance", group: "Quotes", free: true, url: googleUrl },
+  { id: "morningstar", mark: "★", name: "Morningstar", group: "Quotes", free: true, url: morningstarUrl },
+  { id: "nasdaq", mark: "NDQ", name: "Nasdaq", group: "Quotes", free: true, url: nasdaqUrl },
+  { id: "cnbc", mark: "CNBC", name: "CNBC", group: "News", free: true, url: (s) => `https://www.cnbc.com/quotes/${encodeURIComponent(s)}` },
+  { id: "marketwatch", mark: "MW", name: "MarketWatch", group: "News", free: true, url: marketwatchUrl },
+  { id: "barrons", mark: "B", name: "Barron's", group: "News", free: false, url: barronsUrl },
+  { id: "wsj", mark: "WSJ", name: "WSJ", group: "News", free: false, url: wsjUrl },
+  { id: "tradingview", mark: "TV", name: "TradingView", group: "Charts & data", free: true, url: (s) => `https://www.tradingview.com/symbols/${encodeURIComponent(dotted(s))}/` },
+  { id: "finviz", mark: "FV", name: "Finviz", group: "Charts & data", free: true, url: (s) => `https://finviz.com/quote.ashx?t=${encodeURIComponent(s)}` },
+  // The cashtag feeds — what people are SAYING about the ticker, where the
+  // rest are what it's worth.
+  { id: "x", mark: "𝕏", name: "X", group: "Sentiment", free: true, url: (s) => `https://x.com/search?q=${encodeURIComponent("$" + s)}&src=cashtag_click` },
+  { id: "stocktwits", mark: "ST", name: "Stocktwits", group: "Sentiment", free: true, url: (s) => `https://stocktwits.com/symbol/${encodeURIComponent(s)}` },
 ];
+
+export const DEFAULT_ON: DestId[] = DESTINATIONS.filter((d) => d.free).map((d) => d.id);

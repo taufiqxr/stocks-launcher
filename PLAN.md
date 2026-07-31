@@ -129,6 +129,19 @@ brand color, URL builder, fallback.
   group per lookup (no popup-blocker concerns in this form). Prefs in
   `chrome.storage.sync`. Store listing deferred until the $5 developer
   account is opened — nothing needs to change for it.
+- ✅ **Twelve sites + the grouped picker** (2026-07-31, owner chose
+  "Option C" of three interactive mockups): destinations grew to 12 —
+  Google Finance, Nasdaq, CNBC, MarketWatch, TradingView, Finviz and
+  Stocktwits joined, every URL browser-verified across stock/ETF/fund
+  (Nasdaq funds use singular `mutual-fund`; MarketWatch files ETFs under
+  `fund`; Google needs its own exchange codes + `:MUTF`, and its BARE quote
+  path is a landing page so no-data falls back to a Google search; Finviz
+  self-redirects unknowns to its own search). Seeking Alpha stayed OUT —
+  bot-blocked to curl and its domain wasn't reachable in the verification
+  browser, so it failed the works-for-sure bar. The picker is labeled
+  chips grouped by purpose (Quotes / News / Charts & data / Sentiment);
+  free-without-subscription sites default ON, Barron's and WSJ default
+  off (owner decision); stored choices always win over defaults.
 - **M3 — Polish**: `?q=` parameter, PWA manifest (installable, works
   offline), README with a demo GIF, themes pass.
 - **M4 — Maybe, later**: optional live-suggestion Worker proxy; per-site

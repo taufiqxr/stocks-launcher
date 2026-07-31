@@ -171,51 +171,134 @@ body {
   flex-shrink: 0;
 }
 
-/* ---------------------------------------------------- destination marks */
+/* --------------------------------------------------- destination picker */
 
-.dests {
+/* Labeled chips grouped by what each site is FOR (Quotes / News / Charts
+   & data / Sentiment) — the groups make choosing read as "what do I want
+   open?" rather than a list of logos. */
+.dest-groups {
+  width: 100%;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 11px;
 }
 
-/* The only color on the page. Brand grounds fixed in both themes — a
-   theme-shifted brand mark stops reading as the brand. */
-.dest {
-  border: 0;
-  border-radius: 7px;
-  padding: 8px 10px;
-  color: #fff;
+.dest-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dest-group-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.dest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.dest-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
   font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 5px 11px 5px 6px;
   cursor: pointer;
-  transition: opacity 120ms, transform 80ms;
+  transition: opacity 120ms;
 }
 
-.dest:active {
-  transform: scale(0.94);
+.dest-chip.on {
+  border-color: var(--ink);
 }
 
-.dest:focus-visible {
+.dest-chip:not(.on) {
+  opacity: 0.42;
+}
+
+.dest-chip:not(.on) .dest {
+  filter: grayscale(1);
+}
+
+.dest-chip:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
-.dest.off {
-  opacity: 0.25;
+/* The check is the state word; its slot is reserved so chips don't
+   change width when toggled. */
+.dest-tick {
+  font-size: 11px;
+  width: 11px;
+  color: var(--ink);
+}
+
+/* The brand marks — the only color on the page. Grounds fixed in both
+   themes; a theme-shifted brand mark stops reading as the brand. */
+.dest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 4px 5px;
+  min-width: 22px;
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .dest-yahoo {
   background: #5f01d1;
 }
 
+.dest-google {
+  background: #3478f0;
+}
+
 .dest-morningstar {
   background: #d02b20;
 }
 
+.dest-nasdaq {
+  background: #0092bc;
+}
+
+.dest-cnbc {
+  background: #005594;
+}
+
+.dest-marketwatch {
+  background: #00814d;
+}
+
 .dest-barrons {
   background: #0b3c85;
+}
+
+.dest-tradingview {
+  background: #2962ff;
+}
+
+.dest-finviz {
+  background: #2b4a6f;
+}
+
+.dest-stocktwits {
+  background: #4a3fbf;
 }
 
 /* White-on-black marks; the hairline keeps them visible on the dark

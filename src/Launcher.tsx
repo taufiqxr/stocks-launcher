@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DESTINATIONS, type DestId, type SymbolInfo } from "./destinations";
+import { DEFAULT_ON, DESTINATIONS, type DestId, type SymbolInfo } from "./destinations";
 import { loadSymbols, searchSymbols, type Sym } from "./search";
 
 const DESTS_KEY = "sl-dests";
@@ -22,9 +22,10 @@ function loadDests(): DestId[] {
       if (valid.length > 0) return valid;
     }
   } catch {
-    // Absent or malformed — every destination on, the default.
+    // Absent or malformed — fall through to the defaults.
   }
-  return DESTINATIONS.map((d) => d.id);
+  // Sites usable without a subscription start on; a stored choice wins.
+  return DEFAULT_ON;
 }
 
 // Chrome's autofill reads a lone text input as an address form and renders
@@ -166,19 +167,34 @@ export default function Launcher({
           </div>
         )}
       </div>
-      {/* The brand marks are the destination pickers — and the only color
-          on the page. Lit opens, dim skips. */}
-      <div className="dests" role="group" aria-label="Sites to open">
-        {DESTINATIONS.map((d) => (
-          <button
-            key={d.id}
-            className={`dest dest-${d.id}${dests.includes(d.id) ? "" : " off"}`}
-            aria-pressed={dests.includes(d.id)}
-            title={`${d.name} — ${dests.includes(d.id) ? "opens on launch, click to skip" : "skipped, click to enable"}`}
-            onClick={() => toggleDest(d.id)}
-          >
-            {d.mark}
-          </button>
+      {/* The site picker: labeled chips grouped by what each site is FOR
+          (owner's pick of the 2026-07-31 proposals — Option C). The brand
+          marks stay the only color on the page; a checked chip opens on
+          launch, an unchecked one is skipped. */}
+      <div className="dest-groups" role="group" aria-label="Sites to open">
+        {[...new Set(DESTINATIONS.map((d) => d.group))].map((group) => (
+          <div className="dest-group" key={group}>
+            <div className="dest-group-label">{group}</div>
+            <div className="dest-chips">
+              {DESTINATIONS.filter((d) => d.group === group).map((d) => (
+                <button
+                  key={d.id}
+                  className={`dest-chip${dests.includes(d.id) ? " on" : ""}`}
+                  aria-pressed={dests.includes(d.id)}
+                  title={`${d.name} — ${dests.includes(d.id) ? "opens on launch, click to skip" : "skipped, click to enable"}`}
+                  onClick={() => toggleDest(d.id)}
+                >
+                  <span className={`dest dest-${d.id}`} aria-hidden="true">
+                    {d.mark}
+                  </span>
+                  {d.name}
+                  <span className="dest-tick" aria-hidden="true">
+                    {dests.includes(d.id) ? "✓" : ""}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>

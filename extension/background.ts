@@ -3,7 +3,7 @@
 // popup uses; a pick (or raw Enter) opens the enabled destinations as a
 // named tab group.
 
-import { DESTINATIONS } from "../src/destinations";
+import { DEFAULT_ON, DESTINATIONS } from "../src/destinations";
 import { loadSymbols, searchSymbols } from "../src/search";
 import { openInGroup } from "./launch";
 
@@ -47,8 +47,8 @@ chrome.omnibox.onInputEntered.addListener((text) => {
     const info = top && top.ticker === symbol ? top.info : undefined;
     const stored: unknown = (await chrome.storage.sync.get("dests")).dests;
     const all = DESTINATIONS.map((d) => d.id);
-    const enabled = Array.isArray(stored) ? all.filter((id) => stored.includes(id)) : all;
-    const use = enabled.length > 0 ? enabled : all;
+    const enabled = Array.isArray(stored) ? all.filter((id) => stored.includes(id)) : DEFAULT_ON;
+    const use = enabled.length > 0 ? enabled : DEFAULT_ON;
     await openInGroup(
       symbol,
       DESTINATIONS.filter((d) => use.includes(d.id)).map((d) => d.url(symbol, info)),

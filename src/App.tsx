@@ -9,7 +9,7 @@ export default function App() {
       </header>
       <Launcher />
       <footer className="foot">
-        <span>Direct quote pages on Yahoo Finance, Morningstar, Barron's, WSJ, and X's cashtag search.</span>
+        <span>Twelve research sites, each opened on its direct quote page. Your picks are remembered on this device.</span>
         <a href="https://github.com/taufiqxr/stocks-launcher">GitHub</a>
       </footer>
     </main>

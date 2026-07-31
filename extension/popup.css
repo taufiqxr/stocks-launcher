@@ -9,7 +9,7 @@ body {
 
 .popup {
   padding: 18px 18px 14px;
-  min-height: 420px;
+  min-height: 480px;
 }
 
 /* The popup is the chrome; the input carries the identity on its own. */
