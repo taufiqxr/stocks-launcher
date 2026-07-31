@@ -42,12 +42,14 @@ function SiteIcon({ d }: { d: (typeof DESTINATIONS)[number] }) {
       </span>
     );
   }
+  // Deliberately NOT loading="lazy": lazy images defer in hidden/background
+  // tabs, so a popup or restored tab could sit iconless — and thirteen
+  // ~1 KB favicons need no deferring.
   return (
     <img
       className="dest-icon"
       src={`https://www.google.com/s2/favicons?domain=${d.domain}&sz=64`}
       alt=""
-      loading="lazy"
       onError={() => setFailed(true)}
     />
   );
