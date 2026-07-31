@@ -1,24 +1,15 @@
-/* Stocks Launcher — ink on paper, monochrome by rule: the five brand marks
-   are the ONLY color on the page. The typed ticker is the hero type. */
+/* Stocks Launcher — dark hollow (owner direction 2026-07-31): one deep
+   ground, no filled surfaces — every element is an outline. Brand color
+   survives only as the marks' hollow strokes; the typed ticker is still
+   the hero type. Deliberately single-theme: the hollow look is drawn for
+   this ground, and a light variant would be a different design. */
 
 :root {
-  --paper: #f6f6f2;
-  --ink: #17181a;
-  --dim: #71746e;
-  --line: #d7d8d1;
-  --raised: #fdfdfb;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans: "Archivo", system-ui, -apple-system, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #131416;
-    --ink: #e9eae5;
-    --dim: #8d9089;
-    --line: #2c2e31;
-    --raised: #1b1c1f;
-  }
+  --paper: #101113;
+  --ink: #e7e9e4;
+  --dim: #7e817b;
+  --line: #2a2c2f;
+  color-scheme: dark;
 }
 
 * {
@@ -26,14 +17,10 @@
   margin: 0;
 }
 
-html {
-  color-scheme: light dark;
-}
-
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: "Archivo", system-ui, -apple-system, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -58,8 +45,7 @@ body {
 }
 
 .wordmark {
-  font-family: var(--sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -69,7 +55,7 @@ body {
 
 .tagline {
   color: var(--dim);
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 /* ------------------------------------------------------------- launcher */
@@ -79,7 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
 }
 
 .box {
@@ -89,12 +75,12 @@ body {
 
 .box-input {
   width: 100%;
-  font-family: var(--mono);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: clamp(22px, 5vw, 30px);
   font-weight: 600;
   text-transform: uppercase;
   color: var(--ink);
-  background: var(--raised);
+  background: transparent;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 18px 22px;
@@ -108,10 +94,11 @@ body {
 }
 
 .box-input:focus {
-  outline: 2px solid var(--ink);
-  outline-offset: -1px;
+  outline: none;
+  border-color: var(--ink);
 }
 
+/* The one filled surface: a dropdown must occlude what it covers. */
 .suggest {
   position: absolute;
   top: calc(100% + 8px);
@@ -120,11 +107,11 @@ body {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  background: var(--raised);
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.14);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.5);
 }
 
 .suggest-item {
@@ -134,7 +121,7 @@ body {
   padding: 10px 22px;
   background: transparent;
   border: 0;
-  font-family: var(--sans);
+  font-family: inherit;
   font-size: 14px;
   color: var(--ink);
   text-align: left;
@@ -147,11 +134,11 @@ body {
 
 .suggest-item:hover,
 .suggest-item.active {
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
 }
 
 .suggest-ticker {
-  font-family: var(--mono);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-weight: 600;
   min-width: 5.5ch;
 }
@@ -173,14 +160,11 @@ body {
 
 /* --------------------------------------------------- destination picker */
 
-/* Labeled chips grouped by what each site is FOR (Quotes / News / Charts
-   & data / Sentiment) — the groups make choosing read as "what do I want
-   open?" rather than a list of logos. */
 .dest-groups {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 
 .dest-group {
@@ -190,45 +174,44 @@ body {
 }
 
 .dest-group-label {
-  font-family: var(--mono);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--dim);
 }
 
+/* Symmetric by rule: a grid of equal cells, never content-sized pills —
+   auto-fill so a lone chip in a row keeps chip size instead of
+   stretching. */
 .dest-chips {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 7px;
 }
 
 .dest-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 8px;
   background: transparent;
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: inherit;
   font-size: 12.5px;
   font-weight: 500;
-  padding: 5px 11px 5px 6px;
+  padding: 6px 10px 6px 7px;
   cursor: pointer;
-  transition: opacity 120ms;
+  transition: opacity 120ms, border-color 120ms;
 }
 
 .dest-chip.on {
-  border-color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 55%, transparent);
 }
 
 .dest-chip:not(.on) {
-  opacity: 0.42;
-}
-
-.dest-chip:not(.on) .dest {
-  filter: grayscale(1);
+  opacity: 0.34;
 }
 
 .dest-chip:focus-visible {
@@ -236,25 +219,18 @@ body {
   outline-offset: 2px;
 }
 
-/* The check is the state word; its slot is reserved so chips don't
-   change width when toggled. */
-.dest-tick {
-  font-size: 11px;
-  width: 11px;
-  color: var(--ink);
-}
-
-/* The brand marks — the only color on the page. Grounds fixed in both
-   themes; a theme-shifted brand mark stops reading as the brand. */
+/* Hollow brand marks: the color is the STROKE, not a fill — the page's
+   only color, carried as thin light. */
 .dest {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--brand, var(--ink));
+  color: var(--brand, var(--ink));
   border-radius: 5px;
-  padding: 4px 5px;
-  min-width: 22px;
-  color: #fff;
-  font-family: var(--sans);
+  padding: 3px 4px;
+  min-width: 24px;
+  background: transparent;
   font-size: 10px;
   font-weight: 700;
   line-height: 1;
@@ -262,64 +238,61 @@ body {
 }
 
 .dest-yahoo {
-  background: #5f01d1;
+  --brand: #8b5cf6;
 }
 
 .dest-google {
-  background: #3478f0;
+  --brand: #6b9ff5;
 }
 
 .dest-morningstar {
-  background: #d02b20;
+  --brand: #e66358;
 }
 
 .dest-nasdaq {
-  background: #0092bc;
+  --brand: #38b6da;
 }
 
 .dest-cnbc {
-  background: #005594;
+  --brand: #4f8fc4;
 }
 
 .dest-marketwatch {
-  background: #00814d;
+  --brand: #3dbd85;
 }
 
 .dest-barrons {
-  background: #0b3c85;
+  --brand: #5d8ed6;
 }
 
 .dest-tradingview {
-  background: #2962ff;
+  --brand: #5c85ff;
 }
 
 .dest-finviz {
-  background: #2b4a6f;
+  --brand: #7fa3c7;
 }
 
 .dest-stocktwits {
-  background: #4a3fbf;
+  --brand: #8d84e8;
 }
 
-/* White-on-black marks; the hairline keeps them visible on the dark
-   theme's near-black paper. */
+.dest-reddit {
+  --brand: #ff6a33;
+}
+
+/* Black brands have no hue to keep — they go pure hollow ink. */
 .dest-wsj,
 .dest-x {
-  background: #000;
-  box-shadow: inset 0 0 0 1px var(--line);
+  --brand: var(--ink);
 }
 
 /* ----------------------------------------------------------------- foot */
 
 .foot {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: var(--dim);
+  justify-content: center;
   font-size: 12.5px;
-  text-align: center;
-  max-width: 560px;
 }
 
 .foot a {
@@ -332,7 +305,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dest {
+  .dest-chip {
     transition: none;
   }
 }

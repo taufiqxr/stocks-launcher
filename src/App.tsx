@@ -9,8 +9,9 @@ export default function App() {
       </header>
       <Launcher />
       <footer className="foot">
-        <span>Twelve research sites, each opened on its direct quote page. Your picks are remembered on this device.</span>
-        <a href="https://github.com/taufiqxr/stocks-launcher">GitHub</a>
+        <a href="https://github.com/taufiqxr/stocks-launcher" title="Each checked site opens on its direct quote page; your picks are remembered on this device">
+          GitHub
+        </a>
       </footer>
     </main>
   );

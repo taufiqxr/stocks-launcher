@@ -5,10 +5,10 @@
 Type a ticker or a company name. Hit Enter. Every research site you care
 about opens at once — each on the **direct quote page** for that symbol.
 
-- Twelve sites, grouped by purpose: **Yahoo Finance**, **Google Finance**,
-  **Morningstar**, **Nasdaq** · **CNBC**, **MarketWatch**, **Barron's**,
-  **WSJ** · **TradingView**, **Finviz** · **X** and **Stocktwits** (cashtag
-  feeds)
+- Thirteen sites, grouped by purpose: **Yahoo Finance**, **Google
+  Finance**, **Morningstar**, **Nasdaq** · **CNBC**, **MarketWatch**,
+  **Barron's**, **WSJ** · **TradingView**, **Finviz** · **X**,
+  **Stocktwits** and **Reddit** (cashtag searches)
 - Suggestions as you type, by ticker or company name
 - Check or uncheck any site — free ones start on, and your picks are
   remembered (per browser on the web, synced across Chromes in the

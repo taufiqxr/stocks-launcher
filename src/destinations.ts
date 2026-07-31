@@ -28,7 +28,8 @@ export type DestId =
   | "tradingview"
   | "finviz"
   | "x"
-  | "stocktwits";
+  | "stocktwits"
+  | "reddit";
 
 const SECTIONS: Record<string, string> = {
   stock: "stocks",
@@ -146,6 +147,7 @@ export const DESTINATIONS: {
   // rest are what it's worth.
   { id: "x", mark: "𝕏", name: "X", group: "Sentiment", free: true, url: (s) => `https://x.com/search?q=${encodeURIComponent("$" + s)}&src=cashtag_click` },
   { id: "stocktwits", mark: "ST", name: "Stocktwits", group: "Sentiment", free: true, url: (s) => `https://stocktwits.com/symbol/${encodeURIComponent(s)}` },
+  { id: "reddit", mark: "r/", name: "Reddit", group: "Sentiment", free: true, url: (s) => `https://www.reddit.com/search/?q=${encodeURIComponent("$" + s)}` },
 ];
 
 export const DEFAULT_ON: DestId[] = DESTINATIONS.filter((d) => d.free).map((d) => d.id);

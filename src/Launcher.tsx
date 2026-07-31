@@ -188,9 +188,6 @@ export default function Launcher({
                     {d.mark}
                   </span>
                   {d.name}
-                  <span className="dest-tick" aria-hidden="true">
-                    {dests.includes(d.id) ? "✓" : ""}
-                  </span>
                 </button>
               ))}
             </div>
