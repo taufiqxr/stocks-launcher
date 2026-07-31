@@ -63,15 +63,20 @@ fund variants. This table is the core IP of the project; keep it tested.
 |---|---|---|---|---|
 | Yahoo Finance | `finance.yahoo.com/quote/SYM` | same | same | — (quote path takes anything) |
 | Morningstar | `morningstar.com/stocks/<mic>/sym/quote` | `…/etfs/<mic>/sym/quote` | `…/funds/<mic>/sym/quote` | `morningstar.com/search?query=SYM` |
-| Barron's | `barrons.com/market-data/stocks/sym` | `…/etfs/sym` | `…/funds/sym` | `barrons.com/search?keyword=SYM` |
-| WSJ | `wsj.com/market-data/quotes/SYM` | same | `…/quotes/mutualfund/US/<MIC>/SYM` | `wsj.com/search?query=SYM` |
+| Barron's | `barrons.com/market-data/stocks/sym` | `…/funds/sym` (no /etfs/ section — that's a soft 404) | `…/funds/sym` | `barrons.com/search?keyword=SYM` |
+| WSJ | `wsj.com/market-data/quotes/SYM` | `…/quotes/etf/SYM` (the bare path never renders for an ETF) | `…/quotes/mutualfund/US/<MIC>/SYM` | `wsj.com/search?query=SYM` |
 | X | `x.com/search?q=%24SYM&src=cashtag_click` | same | same | — |
 
 Exchange MIC slugs (Morningstar lowercase, WSJ uppercase): Nasdaq `xnas`,
 NYSE `xnys`, NYSE Arca `arcx`, NYSE American `xase`, Cboe BZX `bats`, OTC
-`pinx`. **Rule: never guess a direct URL** — an unmapped exchange or unknown
-security type falls back to that site's search page, because a wrong direct
-URL looks like the site not knowing the stock.
+`pinx`. Two corrections found in build-day testing: the SEC files ETF trusts
+under "NYSE" but NYSE-group ETFs actually list on **Arca** — and Morningstar
+hard-404s the wrong venue (SPY at `/etfs/xnys/…` is Page Not Found) — so the
+pipeline rewrites `etf + xnys → arcx`; and class shares are dash on Yahoo
+(`BRK-B`) but dot everywhere else (`brk.b`). **Rule: never guess a direct
+URL** — an unmapped exchange or unknown security type falls back to that
+site's search page, because a wrong direct URL looks like the site not
+knowing the stock.
 
 Destinations live in one config module (`src/destinations.ts`, ported from
 the widget's `researchLinks.ts`) so adding a site is one entry: id, mark,
@@ -110,11 +115,13 @@ brand color, URL builder, fallback.
 
 ## Milestones
 
-- **M1 — Launcher works** (shippable day one): scaffold, destinations module
-  ported, input + toggles + anchor-click opening, no suggestions yet. Deploy
-  to Pages.
-- **M2 — Suggestions**: SEC symbol pipeline, client-side search, keyboard
-  navigation, direct-page URL building from the dataset's exchange field.
+- ✅ **M1 — Launcher works** (shipped 2026-07-31): scaffold, destinations
+  module ported, input + toggles + anchor-click opening, deployed to Pages
+  at https://taufiqxr.github.io/stocks-launcher/.
+- ✅ **M2 — Suggestions** (shipped 2026-07-31, same day): SEC symbol
+  pipeline (38,835 tickers), client-side search, keyboard navigation,
+  direct-page URLs from the dataset's exchange field — verified live for a
+  stock (NVDA), an ETF (SPY) and a mutual fund (FXAIX) on all five sites.
 - **M3 — Polish**: `?q=` parameter, PWA manifest (installable, works
   offline), README with a demo GIF, themes pass.
 - **M4 — Maybe, later**: optional live-suggestion Worker proxy; per-site
