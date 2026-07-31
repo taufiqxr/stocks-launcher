@@ -1,14 +1,15 @@
-/* Stocks Launcher — dark hollow (owner direction 2026-07-31): one deep
-   ground, no filled surfaces — every element is an outline. Brand color
-   survives only as the marks' hollow strokes; the typed ticker is still
-   the hero type. Deliberately single-theme: the hollow look is drawn for
-   this ground, and a light variant would be a different design. */
+/* Stocks Launcher — hollow gray (owner direction 2026-07-31, revised the
+   same day from near-black: "holo gray instead of hollow dark"): one
+   graphite ground, no filled surfaces — every element is an outline. The
+   chips carry each site's real favicon; the typed ticker is still the hero
+   type. Deliberately single-theme: the hollow look is drawn for this
+   ground, and a light variant would be a different design. */
 
 :root {
-  --paper: #101113;
-  --ink: #e7e9e4;
-  --dim: #7e817b;
-  --line: #2a2c2f;
+  --paper: #26282b;
+  --ink: #eceee9;
+  --dim: #979b94;
+  --line: #3d4045;
   color-scheme: dark;
 }
 
@@ -219,8 +220,21 @@ body {
   outline-offset: 2px;
 }
 
-/* Hollow brand marks: the color is the STROKE, not a fill — the page's
-   only color, carried as thin light. */
+/* Favicons: each site's own icon, 18px on a subtle rounded plate so
+   mixed icon shapes read as one row. Grayscaled with the chip when off. */
+.dest-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.dest-chip:not(.on) .dest-icon {
+  filter: grayscale(1);
+}
+
+/* Hollow fallback marks, shown only when a favicon can't load: the color
+   is the STROKE, not a fill. */
 .dest {
   display: inline-flex;
   align-items: center;

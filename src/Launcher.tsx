@@ -28,6 +28,31 @@ function loadDests(): DestId[] {
   return DEFAULT_ON;
 }
 
+// Each chip shows the site's own favicon, fetched at runtime through
+// Google's favicon service — nothing bundled, so no licensed artwork lives
+// in this repo. The drawn mark is the automatic fallback whenever the icon
+// can't load (offline, blocked, service down), so a chip never renders
+// empty.
+function SiteIcon({ d }: { d: (typeof DESTINATIONS)[number] }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <span className={`dest dest-${d.id}`} aria-hidden="true">
+        {d.mark}
+      </span>
+    );
+  }
+  return (
+    <img
+      className="dest-icon"
+      src={`https://www.google.com/s2/favicons?domain=${d.domain}&sz=64`}
+      alt=""
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 // Chrome's autofill reads a lone text input as an address form and renders
 // its own dropdown over ours; these attributes (plus the password-manager
 // opt-outs) keep the field plain.
@@ -184,9 +209,7 @@ export default function Launcher({
                   title={`${d.name} — ${dests.includes(d.id) ? "opens on launch, click to skip" : "skipped, click to enable"}`}
                   onClick={() => toggleDest(d.id)}
                 >
-                  <span className={`dest dest-${d.id}`} aria-hidden="true">
-                    {d.mark}
-                  </span>
+                  <SiteIcon d={d} />
                   {d.name}
                 </button>
               ))}

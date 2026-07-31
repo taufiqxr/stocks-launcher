@@ -126,6 +126,11 @@ function marketwatchUrl(symbol: string, info?: SymbolInfo): string {
 export const DESTINATIONS: {
   id: DestId;
   mark: string;
+  // The site's own favicon renders in the chips (fetched at runtime, never
+  // bundled — displaying a site's self-published icon to say "this opens
+  // there" is ordinary referential use); `mark` is the drawn fallback when
+  // the icon can't load.
+  domain: string;
   name: string;
   group: string;
   free: boolean;
@@ -133,21 +138,21 @@ export const DESTINATIONS: {
 }[] = [
   // One endpoint per symbol regardless of kind: Yahoo, CNBC, TradingView,
   // Finviz (self-redirects unknowns to its own search), Stocktwits, X.
-  { id: "yahoo", mark: "Y!", name: "Yahoo Finance", group: "Quotes", free: true, url: (s) => `https://finance.yahoo.com/quote/${encodeURIComponent(s)}` },
-  { id: "google", mark: "G", name: "Google Finance", group: "Quotes", free: true, url: googleUrl },
-  { id: "morningstar", mark: "★", name: "Morningstar", group: "Quotes", free: true, url: morningstarUrl },
-  { id: "nasdaq", mark: "NDQ", name: "Nasdaq", group: "Quotes", free: true, url: nasdaqUrl },
-  { id: "cnbc", mark: "CNBC", name: "CNBC", group: "News", free: true, url: (s) => `https://www.cnbc.com/quotes/${encodeURIComponent(s)}` },
-  { id: "marketwatch", mark: "MW", name: "MarketWatch", group: "News", free: true, url: marketwatchUrl },
-  { id: "barrons", mark: "B", name: "Barron's", group: "News", free: false, url: barronsUrl },
-  { id: "wsj", mark: "WSJ", name: "WSJ", group: "News", free: false, url: wsjUrl },
-  { id: "tradingview", mark: "TV", name: "TradingView", group: "Charts & data", free: true, url: (s) => `https://www.tradingview.com/symbols/${encodeURIComponent(dotted(s))}/` },
-  { id: "finviz", mark: "FV", name: "Finviz", group: "Charts & data", free: true, url: (s) => `https://finviz.com/quote.ashx?t=${encodeURIComponent(s)}` },
+  { id: "yahoo", domain: "finance.yahoo.com", mark: "Y!", name: "Yahoo Finance", group: "Quotes", free: true, url: (s) => `https://finance.yahoo.com/quote/${encodeURIComponent(s)}` },
+  { id: "google", domain: "google.com", mark: "G", name: "Google Finance", group: "Quotes", free: true, url: googleUrl },
+  { id: "morningstar", domain: "morningstar.com", mark: "★", name: "Morningstar", group: "Quotes", free: true, url: morningstarUrl },
+  { id: "nasdaq", domain: "nasdaq.com", mark: "NDQ", name: "Nasdaq", group: "Quotes", free: true, url: nasdaqUrl },
+  { id: "cnbc", domain: "cnbc.com", mark: "CNBC", name: "CNBC", group: "News", free: true, url: (s) => `https://www.cnbc.com/quotes/${encodeURIComponent(s)}` },
+  { id: "marketwatch", domain: "marketwatch.com", mark: "MW", name: "MarketWatch", group: "News", free: true, url: marketwatchUrl },
+  { id: "barrons", domain: "barrons.com", mark: "B", name: "Barron's", group: "News", free: false, url: barronsUrl },
+  { id: "wsj", domain: "wsj.com", mark: "WSJ", name: "WSJ", group: "News", free: false, url: wsjUrl },
+  { id: "tradingview", domain: "tradingview.com", mark: "TV", name: "TradingView", group: "Charts & data", free: true, url: (s) => `https://www.tradingview.com/symbols/${encodeURIComponent(dotted(s))}/` },
+  { id: "finviz", domain: "finviz.com", mark: "FV", name: "Finviz", group: "Charts & data", free: true, url: (s) => `https://finviz.com/quote.ashx?t=${encodeURIComponent(s)}` },
   // The cashtag feeds — what people are SAYING about the ticker, where the
   // rest are what it's worth.
-  { id: "x", mark: "𝕏", name: "X", group: "Sentiment", free: true, url: (s) => `https://x.com/search?q=${encodeURIComponent("$" + s)}&src=cashtag_click` },
-  { id: "stocktwits", mark: "ST", name: "Stocktwits", group: "Sentiment", free: true, url: (s) => `https://stocktwits.com/symbol/${encodeURIComponent(s)}` },
-  { id: "reddit", mark: "r/", name: "Reddit", group: "Sentiment", free: true, url: (s) => `https://www.reddit.com/search/?q=${encodeURIComponent("$" + s)}` },
+  { id: "x", domain: "x.com", mark: "𝕏", name: "X", group: "Sentiment", free: true, url: (s) => `https://x.com/search?q=${encodeURIComponent("$" + s)}&src=cashtag_click` },
+  { id: "stocktwits", domain: "stocktwits.com", mark: "ST", name: "Stocktwits", group: "Sentiment", free: true, url: (s) => `https://stocktwits.com/symbol/${encodeURIComponent(s)}` },
+  { id: "reddit", domain: "reddit.com", mark: "r/", name: "Reddit", group: "Sentiment", free: true, url: (s) => `https://www.reddit.com/search/?q=${encodeURIComponent("$" + s)}` },
 ];
 
 export const DEFAULT_ON: DestId[] = DESTINATIONS.filter((d) => d.free).map((d) => d.id);
