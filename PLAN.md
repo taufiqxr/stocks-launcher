@@ -122,6 +122,13 @@ brand color, URL builder, fallback.
   pipeline (38,835 tickers), client-side search, keyboard navigation,
   direct-page URLs from the dataset's exchange field — verified live for a
   stock (NVDA), an ETF (SPY) and a mutual fund (FXAIX) on all five sites.
+- ✅ **Chrome extension** (built 2026-07-31, unpublished): a second Vite
+  target (`npm run build:ext` → `dist-extension/`, loaded unpacked) reusing
+  the same Launcher/destinations/search modules. Popup on the toolbar icon;
+  omnibox keyword `sl`; tabs open via `chrome.tabs.create` into a NAMED tab
+  group per lookup (no popup-blocker concerns in this form). Prefs in
+  `chrome.storage.sync`. Store listing deferred until the $5 developer
+  account is opened — nothing needs to change for it.
 - **M3 — Polish**: `?q=` parameter, PWA manifest (installable, works
   offline), README with a demo GIF, themes pass.
 - **M4 — Maybe, later**: optional live-suggestion Worker proxy; per-site

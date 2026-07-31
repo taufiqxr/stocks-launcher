@@ -4,3 +4,4 @@ dist/
 *.log
 # Generated per build by scripts/build-symbols.mjs
 public/symbols.json
+dist-extension/

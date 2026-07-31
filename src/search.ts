@@ -17,8 +17,10 @@ const KINDS: Record<string, Kind> = { s: "stock", e: "etf", f: "fund" };
 let rows: Sym[] | null = null;
 let loading: Promise<void> | null = null;
 
-export function loadSymbols(): Promise<void> {
-  loading ??= fetch(`${import.meta.env.BASE_URL}symbols.json`)
+// `url` override: the extension's service worker passes
+// chrome.runtime.getURL("symbols.json"); the website omits it.
+export function loadSymbols(url?: string): Promise<void> {
+  loading ??= fetch(url ?? `${import.meta.env.BASE_URL}symbols.json`)
     .then((r) => (r.ok ? (r.json() as Promise<Row[]>) : Promise.reject(new Error(`HTTP ${r.status}`))))
     .then((data) => {
       rows = data.map(([ticker, name, mic, kind]) => ({ ticker, name, info: { mic, kind: KINDS[kind] ?? "" } }));

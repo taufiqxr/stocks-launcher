@@ -26,6 +26,20 @@ doesn't know (foreign listings, crypto) still opens: unknown symbols take
 each site's search page instead. See [PLAN.md](PLAN.md) for the architecture
 and the verified URL-pattern table.
 
+## Chrome extension
+
+The same launcher as a toolbar popup, plus an address-bar shortcut — type
+`sl tsla` from any page — and each lookup's tabs open bundled in a named
+tab group. No store listing yet; load it straight from the repo:
+
+```
+npm install
+npm run build:ext
+```
+
+Then in Chrome: `chrome://extensions` → turn on **Developer mode**
+(top right) → **Load unpacked** → pick the `dist-extension/` folder.
+
 ## Develop
 
 ```

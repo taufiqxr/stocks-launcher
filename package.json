@@ -8,6 +8,7 @@
     "prebuild": "npm run symbols",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:ext": "npm run symbols && tsc --noEmit && vite build -c vite.config.extension.ts && cp public/symbols.json dist-extension/",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.280",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.5.0",

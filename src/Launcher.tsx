@@ -52,12 +52,24 @@ function openTab(url: string) {
   a.remove();
 }
 
-export default function Launcher() {
+// The extension popup reuses this component with its own storage
+// (chrome.storage.sync via initialDests/onDestsChange) and its own opener
+// (chrome tab groups via launch). The website passes nothing and gets the
+// localStorage + anchor-click behavior it always had.
+export default function Launcher({
+  initialDests,
+  onDestsChange,
+  launch,
+}: {
+  initialDests?: DestId[];
+  onDestsChange?: (dests: DestId[]) => void;
+  launch?: (symbol: string, urls: string[]) => void;
+}) {
   const [typed, setTyped] = useState("");
   const [open, setOpen] = useState(false);
   // Keyboard highlight; -1 = nothing highlighted, Enter opens the raw text.
   const [active, setActive] = useState(-1);
-  const [dests, setDests] = useState<DestId[]>(loadDests);
+  const [dests, setDests] = useState<DestId[]>(() => initialDests ?? loadDests());
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -72,7 +84,8 @@ export default function Launcher() {
       // nothing is a control that does nothing.
       if (prev.includes(id) && prev.length === 1) return prev;
       const next = prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id];
-      localStorage.setItem(DESTS_KEY, JSON.stringify(next));
+      if (onDestsChange) onDestsChange(next);
+      else localStorage.setItem(DESTS_KEY, JSON.stringify(next));
       return next;
     });
   }
@@ -80,9 +93,9 @@ export default function Launcher() {
   function go(symbol: string, info?: SymbolInfo) {
     const s = symbol.trim().toUpperCase();
     if (!s) return;
-    for (const d of DESTINATIONS.filter((d) => dests.includes(d.id))) {
-      openTab(d.url(s, info));
-    }
+    const urls = DESTINATIONS.filter((d) => dests.includes(d.id)).map((d) => d.url(s, info));
+    if (launch) launch(s, urls);
+    else for (const url of urls) openTab(url);
     setTyped("");
     setOpen(false);
     setActive(-1);
