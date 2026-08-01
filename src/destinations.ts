@@ -121,9 +121,9 @@ function marketwatchUrl(symbol: string, info?: SymbolInfo): string {
   return `https://www.marketwatch.com/investing/${section}/${encodeURIComponent(symbol.toLowerCase())}`;
 }
 
-// `free`: usable without a subscription — these default ON (owner decision
-// 2026-07-31); the subscription brands ship default-off. A stored choice
-// always wins over defaults.
+// `free`: usable without a subscription — metadata only since the default
+// set became an explicit trio (below). A stored choice always wins over
+// defaults.
 export const DESTINATIONS: {
   id: DestId;
   mark: string;
@@ -160,4 +160,6 @@ export const DESTINATIONS: {
   { id: "reddit", domain: "reddit.com", mark: "r/", name: "Reddit", group: "Sentiment", free: true, url: (s) => `https://www.reddit.com/search/?q=${encodeURIComponent("$" + s)}` },
 ];
 
-export const DEFAULT_ON: DestId[] = DESTINATIONS.filter((d) => d.free).map((d) => d.id);
+// Owner decision 2026-07-31 (superseding the same-day free-by-default
+// rule): exactly three sites start on; the rest are the user's choice.
+export const DEFAULT_ON: DestId[] = ["yahoo", "google", "x"];
