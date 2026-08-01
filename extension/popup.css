@@ -1,13 +1,33 @@
 /* Popup shell over the shared site styles. A popup sizes to its content,
    and the suggestion dropdown is absolutely positioned — so the shell
-   reserves the height the open list needs, or Chrome clips it. */
+   reserves the height the open list needs, or Chrome clips it.
+
+   Rounded corners (owner request 2026-07-31): Chrome owns the popup's
+   actual window frame, so the page can't reshape it — instead the page
+   goes transparent and OUR surface is a rounded card carrying the ground
+   and its glows. The sliver outside the radius shows Chrome's native
+   popup backdrop, which is what makes the corners read as rounded. */
+
+html,
+body {
+  background: transparent;
+}
 
 body {
   width: 400px;
   margin: 0;
+  padding: 6px;
 }
 
 .popup {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(420px 300px at 15% 8%, rgb(124 92 246 / 0.16), transparent 70%),
+    radial-gradient(380px 280px at 88% 30%, rgb(56 182 218 / 0.13), transparent 70%),
+    radial-gradient(440px 320px at 55% 95%, rgb(255 106 51 / 0.10), transparent 70%),
+    var(--paper);
   padding: 18px 18px 14px;
   min-height: 480px;
 }
