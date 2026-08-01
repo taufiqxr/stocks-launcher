@@ -4,7 +4,7 @@ A Chrome extension: type a ticker or a company name, hit Enter, and every
 research site you care about opens at once — each on the **direct quote
 page** for that symbol, bundled in one named tab group.
 
-![Stocks Launcher](docs/screenshot.jpg)
+<img src="docs/popup.png" alt="The Stocks Launcher popup" width="420">
 
 - **`sl tsla` from the address bar** — the omnibox keyword works from any
   page, suggestions included, no clicking
