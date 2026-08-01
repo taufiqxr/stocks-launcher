@@ -142,6 +142,20 @@ brand color, URL builder, fallback.
   chips grouped by purpose (Quotes / News / Charts & data / Sentiment);
   free-without-subscription sites default ON, Barron's and WSJ default
   off (owner decision); stored choices always win over defaults.
+- ✅ **Same-day polish round** (2026-07-31 evening, owner-directed):
+  Reddit cashtag search and Bloomberg (`quote/SYM:US`, slash class
+  shares) joined — fourteen sites; defaults narrowed to exactly Yahoo
+  Finance + Google Finance + X (superseding free-by-default; stored
+  choices always win); chips carry each site's REAL favicon at runtime
+  (Google's favicon service, drawn hollow marks as onError fallback —
+  never `loading="lazy"`, which silently defers in hidden tabs); the
+  theme walked dark → gray → **hollow glass** (graphite ground with three
+  color glows, every surface frosted translucent); the ticker input
+  shrank to the page's own face; the extension icon became the "launch
+  spark" (stockline ending in the ↗, on the glass tile), picked from four
+  artifact proposals. A rounded-popup experiment shipped and was reverted
+  the same hour — Chrome owns the popup frame, and the inset ring wasn't
+  worth it.
 - **M3 — Polish**: `?q=` parameter, PWA manifest (installable, works
   offline), README with a demo GIF, themes pass.
 - **M4 — Maybe, later**: optional live-suggestion Worker proxy; per-site
