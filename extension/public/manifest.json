@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Stocks Launcher",
-  "version": "0.1.0",
-  "description": "Type a ticker or company name — open Yahoo Finance, Morningstar, Barron's, WSJ and X on its direct quote page, all at once.",
+  "version": "1.0.0",
+  "description": "Type a ticker or company name — open it on 14 research sites at once, each on its direct quote page, in one tab group.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Stocks Launcher"
@@ -20,5 +20,9 @@
   "omnibox": {
     "keyword": "sl"
   },
-  "permissions": ["storage", "tabGroups"]
+  "permissions": [
+    "storage",
+    "tabGroups"
+  ],
+  "homepage_url": "https://github.com/taufiqxr/stocks-launcher"
 }
