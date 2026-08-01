@@ -12,8 +12,3 @@ body {
   min-height: 480px;
 }
 
-/* The popup is the chrome; the input carries the identity on its own. */
-.popup .box-input {
-  font-size: 22px;
-  padding: 12px 16px;
-}
