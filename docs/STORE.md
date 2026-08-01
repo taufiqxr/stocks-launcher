@@ -17,26 +17,27 @@ Everything pre-written; the two things only the owner can do are marked ⛔.
 - **Summary** (from manifest, editable): Type a ticker or company name —
   open it on 14 research sites at once, each on its direct quote page, in
   one tab group.
-- **Description**:
+- **Description** (rev 2 — the first was rejected for "keyword spam":
+  listing all fourteen site names reads as keyword stuffing to the
+  reviewer, so the brand roll-call is gone; the screenshot still shows
+  the sites, which is fine):
 
-  > One box for stock research. Type a ticker or a company name, hit
+  > One box for stock research. Type a ticker or a company name, press
   > Enter, and every research site you have enabled opens at once — each
-  > on the DIRECT quote page for that symbol, bundled into a single named
+  > on the direct quote page for that symbol, bundled into a single named
   > tab group you can collapse or close as one.
   >
-  > • Fourteen sites, grouped by purpose: Yahoo Finance, Google Finance,
-  > Morningstar, Nasdaq · CNBC, MarketWatch, Barron's, WSJ, Bloomberg ·
-  > TradingView, Finviz · X, Stocktwits and Reddit (cashtag searches)
+  > • Fourteen well-known quote, news, charting and discussion sites are
+  > supported — you choose which ones open
   > • Address-bar shortcut: type "sl tsla" from any page
   > • Suggestions as you type, by ticker or company name — from a bundled
-  > dataset of ~39,000 US-listed companies and funds, so they are instant
-  > and work offline
+  > dataset of about 39,000 US-listed companies and funds, instant and
+  > working offline
   > • Pick your sites once; choices sync across your Chromes
   > • No server, no account, no API keys, no tracking — open source (MIT)
   >
-  > Stocks, ETFs and mutual funds all resolve to the right page per site.
-  > Unknown symbols (foreign listings, crypto) still open via each site's
-  > own search.
+  > Stocks, ETFs and mutual funds each resolve to the right page on every
+  > site. Unknown symbols still open through each site's own search.
 
 - **Category**: Productivity → Tools
 - **Language**: English (United States)
