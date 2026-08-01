@@ -27,6 +27,7 @@ export type DestId =
   | "wsj"
   | "tradingview"
   | "finviz"
+  | "bloomberg"
   | "x"
   | "stocktwits"
   | "reddit";
@@ -146,6 +147,10 @@ export const DESTINATIONS: {
   { id: "marketwatch", domain: "marketwatch.com", mark: "MW", name: "MarketWatch", group: "News", free: true, url: marketwatchUrl },
   { id: "barrons", domain: "barrons.com", mark: "B", name: "Barron's", group: "News", free: false, url: barronsUrl },
   { id: "wsj", domain: "wsj.com", mark: "WSJ", name: "WSJ", group: "News", free: false, url: wsjUrl },
+  // One :US-suffixed shape covers stocks and funds alike (verified:
+  // AAPL:US, FXAIX:US); Bloomberg spells class shares with a slash
+  // (BRK/B), hence the dash swap.
+  { id: "bloomberg", domain: "bloomberg.com", mark: "BBG", name: "Bloomberg", group: "News", free: false, url: (s) => `https://www.bloomberg.com/quote/${encodeURIComponent(s.replace(/-/g, "/"))}:US` },
   { id: "tradingview", domain: "tradingview.com", mark: "TV", name: "TradingView", group: "Charts & data", free: true, url: (s) => `https://www.tradingview.com/symbols/${encodeURIComponent(dotted(s))}/` },
   { id: "finviz", domain: "finviz.com", mark: "FV", name: "Finviz", group: "Charts & data", free: true, url: (s) => `https://finviz.com/quote.ashx?t=${encodeURIComponent(s)}` },
   // The cashtag feeds — what people are SAYING about the ticker, where the

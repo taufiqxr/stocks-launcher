@@ -316,7 +316,8 @@ body {
 
 /* Black brands have no hue to keep — they go pure hollow ink. */
 .dest-wsj,
-.dest-x {
+.dest-x,
+.dest-bloomberg {
   --brand: var(--ink);
 }
 
