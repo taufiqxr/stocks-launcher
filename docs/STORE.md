@@ -42,7 +42,7 @@ Everything pre-written; the two things only the owner can do are marked ⛔.
 - **Language**: English (United States)
 - **Store icon**: `extension/public/icons/128.png` (auto-taken from the zip)
 - **Screenshots**: upload `docs/store-screenshot.png` (1280×800)
-- **Homepage URL**: https://github.com/taufiqxr/stocks-launcher
+- **Homepage URL**: https://github.com/taufiqxr/stocks-launcher-chrome-extension
 
 ## Privacy tab
 
@@ -56,7 +56,7 @@ Everything pre-written; the two things only the owner can do are marked ⛔.
 - **Remote code**: No, all code is packaged.
 - **Data usage**: check NOTHING (the extension collects no user data of
   any kind). Certify the disclosures.
-- **Privacy policy URL**: https://taufiqxr.github.io/stocks-launcher/privacy.html
+- **Privacy policy URL**: https://taufiqxr.github.io/stocks-launcher-chrome-extension/privacy.html
 
 ## Distribution tab
 

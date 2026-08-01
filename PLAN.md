@@ -117,7 +117,7 @@ brand color, URL builder, fallback.
 
 - ✅ **M1 — Launcher works** (shipped 2026-07-31): scaffold, destinations
   module ported, input + toggles + anchor-click opening, deployed to Pages
-  at https://taufiqxr.github.io/stocks-launcher/.
+  at https://taufiqxr.github.io/stocks-launcher-chrome-extension/.
 - ✅ **M2 — Suggestions** (shipped 2026-07-31, same day): SEC symbol
   pipeline (38,835 tickers), client-side search, keyboard navigation,
   direct-page URLs from the dataset's exchange field — verified live for a

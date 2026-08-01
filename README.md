@@ -35,7 +35,7 @@ Then in Chrome: `chrome://extensions` → turn on **Developer mode**
 ## Try it without installing
 
 The same launcher runs as a web page at
-**[taufiqxr.github.io/stocks-launcher](https://taufiqxr.github.io/stocks-launcher/)** —
+**[taufiqxr.github.io/stocks-launcher](https://taufiqxr.github.io/stocks-launcher-chrome-extension/)** —
 identical box, suggestions and site picker; tabs open plainly rather than
 grouped (tab groups are an extension power).
 
