@@ -1,21 +1,43 @@
 # Stocks Launcher
 
-**Live at [taufiqxr.github.io/stocks-launcher](https://taufiqxr.github.io/stocks-launcher/).**
-
-Type a ticker or a company name. Hit Enter. Every research site you care
-about opens at once — each on the **direct quote page** for that symbol.
+A Chrome extension: type a ticker or a company name, hit Enter, and every
+research site you care about opens at once — each on the **direct quote
+page** for that symbol, bundled in one named tab group.
 
 ![Stocks Launcher](docs/screenshot.jpg)
 
+- **`sl tsla` from the address bar** — the omnibox keyword works from any
+  page, suggestions included, no clicking
+- **One tab group per lookup** — a "TSLA" bundle in your tab strip you can
+  collapse or close as one
 - Fourteen sites, grouped by purpose: **Yahoo Finance**, **Google
   Finance**, **Morningstar**, **Nasdaq** · **CNBC**, **MarketWatch**,
   **Barron's**, **WSJ**, **Bloomberg** · **TradingView**, **Finviz** ·
   **X**, **Stocktwits** and **Reddit** (cashtag searches)
-- Suggestions as you type, by ticker or company name
+- Suggestions as you type, by ticker or company name — from a bundled
+  dataset, so they're instant and work offline
 - Check or uncheck any site — Yahoo Finance, Google Finance and X start
-  on, the rest are yours to enable; picks are remembered (per browser on
-  the web, synced across Chromes in the extension)
-- One static page: no server, no account, no API keys, no tracking
+  on, the rest are yours to enable; picks sync across your Chromes
+- No server, no account, no API keys, no tracking
+
+## Install
+
+Not on the Chrome Web Store yet — load it straight from the repo:
+
+```
+npm install
+npm run build:ext
+```
+
+Then in Chrome: `chrome://extensions` → turn on **Developer mode**
+(top right) → **Load unpacked** → pick the `dist-extension/` folder.
+
+## Try it without installing
+
+The same launcher runs as a web page at
+**[taufiqxr.github.io/stocks-launcher](https://taufiqxr.github.io/stocks-launcher/)** —
+identical box, suggestions and site picker; tabs open plainly rather than
+grouped (tab groups are an extension power).
 
 ## Why
 
@@ -32,30 +54,16 @@ doesn't know (foreign listings, crypto) still opens: unknown symbols take
 each site's search page instead. See [PLAN.md](PLAN.md) for the architecture
 and the verified URL-pattern table.
 
-## Chrome extension
-
-The same launcher as a toolbar popup, plus an address-bar shortcut — type
-`sl tsla` from any page — and each lookup's tabs open bundled in a named
-tab group. No store listing yet; load it straight from the repo:
-
-```
-npm install
-npm run build:ext
-```
-
-Then in Chrome: `chrome://extensions` → turn on **Developer mode**
-(top right) → **Load unpacked** → pick the `dist-extension/` folder.
-
 ## Develop
 
 ```
 npm install
-npm run symbols   # build public/symbols.json from SEC data (once)
-npm run dev
+npm run dev          # the web page, hot-reloaded
+npm run build:ext    # the extension, into dist-extension/
 ```
 
-`npm run build` runs the symbol pipeline automatically; pushes to `main`
-deploy via GitHub Actions.
+`npm run build` / `build:ext` run the SEC symbol pipeline automatically;
+pushes to `main` deploy the web page via GitHub Actions.
 
 ## License
 
